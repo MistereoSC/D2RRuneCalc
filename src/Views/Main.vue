@@ -339,6 +339,9 @@ export default {
 
   display: flex;
   flex-direction: column;
+
+  position: sticky;
+  top: 85px;
 }
 .box-row{
   display: flex;

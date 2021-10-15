@@ -39,6 +39,9 @@ export default {
   top: 0;
   left: 0;
   user-select: none;
+
+  position: sticky;
+  top: 0;
 }
 
 .items {
