@@ -165,19 +165,18 @@
               <span>Toggle</span>
               <img class="icon" alt="Background" src="../assets/icons/reset.png">
             </div>
-            <div class="box-item" v-on:click="confirmRunes()">
-              <span>Start</span>
-              <img class="icon" alt="Background" src="../assets/icons/check.png">
-            </div>
-
 
           </div>
         </div>
 
         <div class="runeword-box">
           <h2>Runewords</h2>
+          <h3 v-if="viableRunewords.length==0">
+          Select Runes you own, to see which Runewords you can craft!
+            <br>
+          Press "Toggle" to select/deselect all Runes.
+          </h3>
           <div class="item-frame" v-for="item in viableRunewords" :key="item.id">
-
             <div class="box-column left">
               <span class="i-name">{{item.name}}</span>
               <span class="i-runes">{{item.runename}}</span>
@@ -223,13 +222,32 @@ export default {
         [false,false,false,false,false],
         [false,false,false]
       ],
-      viableRunewords: []
+      selRuneName: [],
+      viableRunewords: [],
+      RUNE_ARRAY: [
+        "El","Eld","Tir","Nef","Eth",
+        "Ith","Tal","Ral","Ort","Thul",
+        "Amn","Sol","Shael","Dol","Hel",
+        "Io","Lum","Ko","Fal","Lem",
+        "Pul","Um","Mal","Ist","Gul",
+        "Vex","Ohm","Lo","Sur","Ber",
+        "Jah","Cham","Zod"
+      ]
     }
   },
   methods: {
     updateRune(c,n){
       this.selRune[c][n] = !this.selRune[c][n]
+      var v=this.RUNE_ARRAY[5*c+n]
+      if(this.selRune[c][n]){
+        this.selRuneName.push(v)
+      } else {
+        var i = this.selRuneName.indexOf(v);
+        if (i > -1) {this.selRuneName.splice(i, 1);}
+      }
+      this.confirmRunes()
     },
+
     calcSelectionColor(c,n){
       if(this.selRune[c][n]) return "#12750E"
       else return "#222"
@@ -250,6 +268,7 @@ export default {
           [true,true,true,true,true],
           [true,true,true]
         ]
+        this.selRuneName = this.RUNE_ARRAY
       } else {
         this.selRune = [
           [false,false,false,false,false],
@@ -260,59 +279,20 @@ export default {
           [false,false,false,false,false],
           [false,false,false]
         ]
+        this.selRuneName = []
       }
-    },
-    confirmRunes(){
-      var r = []
-      this.viableRunewords = []
-      if(this.selRune[0][0]) {r.push("El")}
-      if(this.selRune[0][1]) {r.push("Eld")}
-      if(this.selRune[0][2]) {r.push("Tir")}
-      if(this.selRune[0][3]) {r.push("Nef")}
-      if(this.selRune[0][4]) {r.push("Eth")}
-
-      if(this.selRune[1][0]) {r.push("Ith")}
-      if(this.selRune[1][1]) {r.push("Tal")}
-      if(this.selRune[1][2]) {r.push("Ral")}
-      if(this.selRune[1][3]) {r.push("Ort")}
-      if(this.selRune[1][4]) {r.push("Thul")}
-
-      if(this.selRune[2][0]) {r.push("Amn")}
-      if(this.selRune[2][1]) {r.push("Sol")}
-      if(this.selRune[2][2]) {r.push("Shael")}
-      if(this.selRune[2][3]) {r.push("Dol")}
-      if(this.selRune[2][4]) {r.push("Hel")}
-
-      if(this.selRune[3][0]) {r.push("Io")}
-      if(this.selRune[3][1]) {r.push("Lum")}
-      if(this.selRune[3][2]) {r.push("Ko")}
-      if(this.selRune[3][3]) {r.push("Fal")}
-      if(this.selRune[3][4]) {r.push("Lem")}
-
-      if(this.selRune[4][0]) {r.push("Pul")}
-      if(this.selRune[4][1]) {r.push("Um")}
-      if(this.selRune[4][2]) {r.push("Mal")}
-      if(this.selRune[4][3]) {r.push("Ist")}
-      if(this.selRune[4][4]) {r.push("Gul")}
-
-      if(this.selRune[5][0]) {r.push("Vex")}
-      if(this.selRune[5][1]) {r.push("Ohm")}
-      if(this.selRune[5][2]) {r.push("Lo")}
-      if(this.selRune[5][3]) {r.push("Sur")}
-      if(this.selRune[5][4]) {r.push("Ber")}
       
-      if(this.selRune[6][0]) {r.push("Jah")}
-      if(this.selRune[6][1]) {r.push("Cham")}
-      if(this.selRune[6][2]) {r.push("Zod")}
+      this.confirmRunes()
+    },
 
+    confirmRunes(){
+      this.viableRunewords = []
       for(var i=0; i<this.runewords.length; i++){
-        var t = this.runewords[i].runeword.every(function (element) {
-          return r.includes(element);
+        var t = this.runewords[i].runeword.every(element => {
+          return this.selRuneName.includes(element);
         })
         if(t) this.viableRunewords.push(this.runewords[i])
       }
-
-      console.log(this.viableRunewords.length + " hits...")
     }
   }
 }
@@ -340,7 +320,7 @@ export default {
   flex-direction: column;
 
   position: sticky;
-  top: 85px;
+  top: 75px;
 }
 .box-row{
   display: flex;
@@ -410,6 +390,13 @@ h2 {
   margin: 5px 0;
 }
 
+h3 {
+  color: #3B7F94;
+  font-family: 'Roboto', sans-serif;
+  font-size: 13pt;
+  margin-top: 14px;
+}
+
 .i-name {
   margin-top: 10px;
   font-size: 20pt;
@@ -432,7 +419,6 @@ h2 {
   font-size: 12pt;
   margin: 1px 0;
 }
-
 
 .left {
   display: flex;

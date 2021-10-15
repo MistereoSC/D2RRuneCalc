@@ -22,6 +22,9 @@ body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
 }
+html {
+  overflow-y: scroll;
+}
 
 #app {
   font-family: 'Roboto', sans-serif;
