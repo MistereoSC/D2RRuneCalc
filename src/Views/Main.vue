@@ -1,11 +1,13 @@
 <template>
   <div>
     <Select/>
-    <Header/>
+    <!-- 
+      <Header/> 
+    -->
     <div class="main">
       <div class="box-container">
         <div class="rune-box">
-
+          <h2>Runes</h2>
           <div class="box-row">
             <div class="box-item" v-on:click="updateRune(0,0)" v-bind:style="{'background-color':calcSelectionColor(0,0)}">
               <span>El</span>
@@ -173,9 +175,21 @@
         </div>
 
         <div class="runeword-box">
+          <h2>Runewords</h2>
           <div class="item-frame" v-for="item in viableRunewords" :key="item.id">
-            <p>{{item.name}}</p>
-            <p>{{item.runename}}</p>
+
+            <div class="box-column left">
+              <span class="i-name">{{item.name}}</span>
+              <span class="i-runes">{{item.runename}}</span>
+              <div class="box-column">
+                <span class="i-bases" v-for="base in item.bases" :key="base.index">{{base}}</span>
+              </div>
+              <span class="i-clvl">Clvl: {{item.Clvl}}</span>
+            </div>
+
+            <div class="box-column right">
+              <span class="i-stats" v-for="stat in item.Stats" :key="stat.index">{{stat}}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -218,7 +232,7 @@ export default {
     },
     calcSelectionColor(c,n){
       if(this.selRune[c][n]) return "#12750E"
-      else return "#181818"
+      else return "#222"
     },
 
     resetRunes(){
@@ -311,32 +325,30 @@ export default {
   margin-top: 35px;
 }
 .box-container {
-  background-color: #181818;
   width: 100%;
-  height: 600px;
-  box-shadow: 0 0 6px rgb(0 0 0 / 45%);
   display: flex;
 }
 
-
-
 .rune-box {
-  margin: 20px 80px 20px 30px;
-  height: fit-content;
+  margin: 20px 20px 20px 30px;
+  height: 565px;
   padding: 12px;
-  background-color: #222;
+  background-color: #181818;
   border-radius: 10px;
+  box-shadow: 0 0 6px rgb(0 0 0 / 45%);
 
   display: flex;
   flex-direction: column;
 }
 .box-row{
   display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 .box-item {
   display: flex;
   flex-direction: column;
-  background-color: #161616;
+  background-color: #222;
   margin: 2px;
   padding: 3px;
   border-radius: 10px;
@@ -346,17 +358,34 @@ export default {
   box-shadow: inset 0px 0px 0px 3px #2c3e50;
 }
 
-
+.runeword-box{
+  margin: 20px 30px 20px 20px;
+  min-height: 565px;
+  height: fit-content;
+  max-width: 800px;
+  width: 70%;
+  padding: 12px;
+  background-color: #181818;
+  border-radius: 10px;
+  box-shadow: 0 0 6px rgb(0 0 0 / 45%);
+}
 .item-frame {
   width: 100%;
-  height: 100px;
+  height: fit-content;
   background-color: #222;
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.box-column {
+  display: flex;
+  flex-direction: column;
 }
 
-.runeword-box{
-  width: 700px;
-  height: 100%;
-}
+
 
 .icon {
   width: 50px;
@@ -366,12 +395,50 @@ export default {
 span {
   color: #FFF;
   font-family: 'Roboto';
-  margin-bottom: -4px;
+  margin: 0 0 -4px 0;
   user-select: none;
 }
-
 p {
   color: #FFF;
   font-family: 'Roboto', sans-serif;
+}
+h2 {
+  color: #FFF;
+  font-family: 'Roboto', sans-serif;
+  margin: 5px 0;
+}
+
+.i-name {
+  margin-top: 10px;
+  font-size: 20pt;
+  color: #057af0;
+}
+.i-runes {
+  font-size: 12pt;
+  color: #3B7F94;
+}
+.i-bases {
+  font-size: 13pt;
+  margin-top: 2px;
+}
+.i-clvl {
+  font-size: 13pt;
+  color: #3B7F94;
+  margin-top: 2px;
+}
+.i-stats {
+  font-size: 12pt;
+  margin: 1px 0;
+}
+
+
+.left {
+  display: flex;
+  width: 40%;
+}
+.right{
+  width: 60%;
+  display: flex;
+  justify-content: flex-end;
 }
 </style>

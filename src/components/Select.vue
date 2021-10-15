@@ -9,7 +9,13 @@
         
       </div>
       <div class="right">
-
+        <a href="https://ko-fi.com/mistereosc" target="_blank">
+          <img class="icon iconlink" alt="Background" src="../assets/icons/KoFi.png">
+        </a>
+        
+        <a href="https://github.com/MistereoSC/D2RRuneCalc" target="_blank">
+          <img class="icon iconlink" alt="Background" src="../assets/icons/github.png">
+        </a>
       </div>
     </div>
   </div>
@@ -59,6 +65,19 @@ export default {
   margin-top: 2px;
   margin-left: 4px;
 }
+.icon2 {
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  margin-left: 8px;
+}
+.iconlink {
+  cursor: pointer;
+}
+.iconlink:hover{
+  filter: brightness(0.5) sepia(1) saturate(10000%) hue-rotate(210deg);
+}
+
 span {
   font-family: 'Roboto';
   font-weight: 700;

@@ -37,6 +37,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
+  transform: scaleX(-1);
+  filter: brightness(1.2);
   z-index: -1;
 }
 </style>
