@@ -186,7 +186,7 @@
 <script>
 import Header from '../components/Header.vue'
 import Select from '../components/Select.vue'
-import Runes from '../../public/json/runewords.json'
+import Runes from '../../public/json/runewordsByRank.json'
 
 export default {
   name: 'Main',
@@ -196,7 +196,6 @@ export default {
   },
   created () {
     this.runewords = Runes
-    this.viableRunewords = this.runewords
   },
   data () {
     return {
