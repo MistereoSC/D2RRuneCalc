@@ -45,20 +45,20 @@ export default {
 }
 
 .items {
-  margin-left: max(calc(50% - 600px), 0px);
   display: flex;
   height: 30px;
+  justify-content: center;
 }
 .left {
   display: flex;
-  max-width: 600px;
+  max-width: 550px;
   width: 50%;
-  min-width: 300px;
+  min-width: 250px;
 }
 .right{
-  max-width: 600px;
+  max-width: 550px;
   width: 50%;
-  min-width: 300px;
+  min-width: 200px;
   display: flex;
   justify-content: flex-end;
 }

@@ -320,13 +320,12 @@ export default {
 
 <style scoped>
 .main {
-  margin-left: max(calc(50% - 600px), 0px);
-  margin-right: max(calc(50% - 600px), 0px);
-  margin-top: 35px;
+  margin-top: 25px;
 }
 .box-container {
   width: 100%;
   display: flex;
+  justify-content: center;
 }
 
 .rune-box {
